@@ -5,7 +5,7 @@ import { getTableColumns, sql } from 'drizzle-orm'
 const router = Router()
 
 router.get('/', async (req, res, next) => {
-  const locationStr: string = req.query.location?.toString() || '[]'
+  const locationStr: string = req.query.location?.toString() || '[0, 0]'
   const location = JSON.parse(locationStr)
 
   const sqlLocation = sql`
