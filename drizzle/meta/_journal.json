@@ -15,6 +15,20 @@
       "when": 1737166668617,
       "tag": "0001_classy_maddog",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1737224699140,
+      "tag": "0002_equal_dreadnoughts",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1737258140482,
+      "tag": "0003_soft_gorgon",
+      "breakpoints": true
     }
   ]
 }

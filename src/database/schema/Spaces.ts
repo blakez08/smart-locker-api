@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm'
-import { integer, pgTable } from 'drizzle-orm/pg-core'
+import { boolean, integer, pgTable } from 'drizzle-orm/pg-core'
 import { lockers } from './Lockers'
 import { items } from './Items'
 import { problems } from './Problems'
@@ -9,6 +9,7 @@ export const spaces = pgTable(
   {
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
     position: integer().notNull(),
+    available: boolean().default(true),
     lockerId: integer().notNull(),
   })
 
