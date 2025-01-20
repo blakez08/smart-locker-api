@@ -1,0 +1,1 @@
+ALTER TABLE "spaces" ALTER COLUMN "price" SET DEFAULT 0;
