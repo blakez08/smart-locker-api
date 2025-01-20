@@ -1,11 +1,13 @@
 import express, { ErrorRequestHandler } from 'express'
 import morgan from 'morgan'
 import routes from './routes'
+import cookieParser from 'cookie-parser'
 
 const { PORT, NODE_ENV } = process.env
 
 const app = express()
 
+app.use(cookieParser())
 app.use(express.json())
 
 app.use(NODE_ENV !== 'prod' ? morgan('dev') : morgan('combined'))

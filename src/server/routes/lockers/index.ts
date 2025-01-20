@@ -98,6 +98,8 @@ router.put('/:lockerId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
+    if (Array.isArray(req.body)) return next(new Error('Unable to create multiple lockers'))
+      
     const trxLocker = await db.transaction(async (trx) => {
       const [newLocker] = await trx
         .insert(schema.lockers)

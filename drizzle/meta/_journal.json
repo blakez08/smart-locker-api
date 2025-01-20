@@ -50,6 +50,13 @@
       "when": 1737305680147,
       "tag": "0006_furry_scream",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1737410674430,
+      "tag": "0007_melted_cargill",
+      "breakpoints": true
     }
   ]
 }
