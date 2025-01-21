@@ -6,8 +6,16 @@ const verifyUser: RequestHandler = (req, res, next) => {
     const token = req.headers.authorization || req.cookies.token
     if (!token) return next(new Error('Unauthorized'))
 
-    const user = jwt.verify(token, process.env.JWT_SECRET!)
-    res.locals.user = user
+    const payload = jwt.verify(token, process.env.JWT_SECRET!) as {
+      user: {
+        id: string
+        name: string
+        email: string
+      }
+      iat: number
+    }
+
+    res.locals.user = payload.user
 
     next()
   } catch (error) {
