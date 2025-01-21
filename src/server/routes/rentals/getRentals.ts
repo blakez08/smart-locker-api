@@ -12,7 +12,7 @@ const getRentals: RequestHandler = async (req, res, next) => {
         ? and(
             eq(schema.rentals.userId, user.id),
             isNull(schema.rentals.endTime)
-          )
+          ) 
         : undefined,
       with: {
         space: true
