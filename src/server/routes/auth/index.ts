@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import db, { schema } from '../../../database'
-import { sql, eq, inArray } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -15,7 +15,7 @@ router.post('/signup', async (req, res, next) => {
     const [user] = await db
       .insert(schema.users)
       .values({
-        email,
+        email: email.toLowerCase(),
         password: hashedPassword
       })
       .returning()
@@ -32,7 +32,7 @@ router.post('/login', async (req, res, next) => {
     const { email, password } = req.body
 
     const user = await db.query.users.findFirst({
-      where: eq(schema.users.email, email)
+      where: eq(schema.users.email, email.toLowerCase())
     })
 
     if (!user) throw new Error('User not found')
@@ -59,16 +59,16 @@ router.post('/login', async (req, res, next) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production'
       })
-      .send()
+      .json({ token })
   } catch (error) {
     console.error(error)
     next(new Error('Unauthorized'))
   }
 })
 
-router.get('/me', async (req, res, next) => {
+router.post('/me', async (req, res, next) => {
   try {
-    const token = req.cookies.token
+    const token = req.body.token || req.cookies.token
 
     if (!token) return next(new Error('Unauthorized'))
 
@@ -83,7 +83,7 @@ router.get('/me', async (req, res, next) => {
 
 router.post('/logout', async (req, res, next) => {
   try {
-    res.status(200).clearCookie('token').json()
+    res.status(200).clearCookie('token').json({ token: '' })
   } catch (error) {
     console.error(error)
     next(error)
